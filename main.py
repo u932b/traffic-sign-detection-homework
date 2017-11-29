@@ -44,13 +44,16 @@ val_loader = torch.utils.data.DataLoader(
 # We define neural net in model.py so that it can be reused by the evaluate.py script
 from model import Net
 model = Net()
+model = model.cuda()
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+dtype = torch.cuda.FloatTensor
+dtype2 = torch.cuda.LongTensor
 
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = Variable(data), Variable(target)
+        data, target = Variable(data).type(dtype), Variable(target).type(dtype2)
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
