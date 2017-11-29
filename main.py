@@ -69,7 +69,7 @@ def validation():
     validation_loss = 0
     correct = 0
     for data, target in val_loader:
-        data, target = Variable(data, volatile=True), Variable(target)
+        data, target = Variable(data, volatile=True).type(dtype), Variable(target).type(dtype2)
         output = model(data)
         validation_loss += F.nll_loss(output, target, size_average=False).data[0] # sum up batch loss
         pred = output.data.max(1, keepdim=True)[1] # get the index of the max log-probability
