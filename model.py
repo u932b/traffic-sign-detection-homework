@@ -2,8 +2,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
-nclasses = 43  # GTSRB as 43 classes
-
+nclasses = 43 # GTSRB as 43 classes
 
 class Net(nn.Module):
     def __init__(self):
