@@ -7,6 +7,7 @@ nclasses = 43 # GTSRB as 43 classes
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
+        # import pdb; pdb.set_trace()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=5)
         self.conv1_5 = nn.Conv2d(64, 64, kernel_size=5, padding=(2, 2))
         self.conv2 = nn.Conv2d(64, 128, kernel_size=5)

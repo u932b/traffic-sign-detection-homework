@@ -11,7 +11,16 @@ import torchvision.transforms as transforms
 data_transforms = transforms.Compose([
     transforms.Scale((32, 32)),
     transforms.ToTensor(),
-    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629)),
+])
+data_transforms2 = transforms.Compose([
+    transforms.Scale((32, 32)),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629)),
+    transforms.ToPILImage(),
+    transforms.ColorJitter(brightness=1, contrast=0, saturation=0, hue=0), # only brightness is augmented
+    transforms.Transform_Image(), # this is a custom function implemented in a local torchvision lib
+    transforms.ToTensor(),
 ])
 
 
@@ -22,7 +31,8 @@ def initialize_data(folder):
         raise(RuntimeError("Could not find " + train_zip + " and " + test_zip
               + ', please download them from https://www.kaggle.com/c/nyu-cv-fall-2017/data '))
     # extract train_data.zip to train_data
-    train_folder = folder + '/train_images'
+    # train_folder = folder + '/train_images'
+    train_folder = '/scratch/chchao/data/train_images'
     if not os.path.isdir(train_folder):
         print(train_folder + ' not found, extracting ' + train_zip)
         zip_ref = zipfile.ZipFile(train_zip, 'r')
